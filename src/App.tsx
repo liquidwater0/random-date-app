@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import "./scss/App.scss";
 
-//picking date sets it to 1 day before for some reason
 function App() {
 	const [startDateMS, setStartDateMS] = useState<number>(new Date().getTime());
 	const [endDateMS, setEndDateMS] = useState<number>(() => {
