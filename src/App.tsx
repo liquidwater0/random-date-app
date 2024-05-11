@@ -2,6 +2,7 @@ import { useState } from 'react';
 import "./scss/App.scss";
 
 function App() {
+	const [showTime, setShowTime] = useState<boolean>(false); //plan to add toggle for state eventually
 	const [startDateMS, setStartDateMS] = useState<number>(new Date().getTime());
 	const [endDateMS, setEndDateMS] = useState<number>(() => {
 		const currentDate = new Date();
@@ -15,8 +16,16 @@ function App() {
 		const month = (date.getMonth() + 1).toString().padStart(2, "0");
 		const day = date.getDate().toString().padStart(2, "0");
 		const year = date.getFullYear().toString().padStart(4, "0");
+		const hour = date.getHours().toString().padStart(2, "0");
+		const minutes = date.getMinutes().toString().padStart(2, "0");
 
-		return `${year}-${month}-${day}`;
+		let formattedDate = `${year}-${month}-${day}`;
+
+		if (showTime) {
+			formattedDate = `${formattedDate}T${hour}:${minutes}`;
+		}
+
+		return formattedDate;
 	}
 
 	return (
@@ -24,8 +33,8 @@ function App() {
 			<h1 className='date-text'>
 				{
 					randomDate === null ?
-					startDate.toDateString() :
-					randomDate.toDateString()
+					`${startDate.toDateString()} ${showTime ? startDate.toLocaleTimeString() : ""}` :
+					`${randomDate.toDateString()} ${showTime ? randomDate.toLocaleTimeString() : ""}`
 				}
 			</h1>
 
@@ -35,7 +44,7 @@ function App() {
 						From
 					</label>
 					<input
-						type="date"
+						type={showTime ? "datetime-local" : "date"}
 						id="startDateInput"
 						value={getFormattedDate(startDate)}
 						onChange={({ target }) => setStartDateMS(new Date(target.value).getTime())}
@@ -46,7 +55,7 @@ function App() {
 						To
 					</label>
 					<input
-						type="date"
+						type={showTime ? "datetime-local" : "date"}
 						id="endDateInput"
 						value={getFormattedDate(endDate)}
 						onChange={({ target }) => setEndDateMS(new Date(target.value).getTime())}
