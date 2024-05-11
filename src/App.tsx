@@ -32,7 +32,7 @@ function App() {
 			<form className="random-date-form">
 				<div className='form-group'>
 					<label htmlFor="startDateInput">
-						Start Date
+						From
 					</label>
 					<input
 						type="date"
@@ -43,7 +43,7 @@ function App() {
 				</div>
 				<div className='form-group'>
 					<label htmlFor="endDateInput">
-						End Date
+						To
 					</label>
 					<input
 						type="date"
