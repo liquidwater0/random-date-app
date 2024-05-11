@@ -2,7 +2,7 @@ import { useState } from 'react';
 import "./scss/App.scss";
 
 function App() {
-	const [showTime, setShowTime] = useState<boolean>(false); //plan to add toggle for state eventually
+	const [showTime, _] = useState<boolean>(false); //plan to add toggle for state eventually
 	const [startDateMS, setStartDateMS] = useState<number>(new Date().getTime());
 	const [endDateMS, setEndDateMS] = useState<number>(() => {
 		const currentDate = new Date();
