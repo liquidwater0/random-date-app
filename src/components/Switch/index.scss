@@ -1,33 +1,31 @@
 .switch {
-    --gap: 0.35rem;
+    --gap: 0.25rem;
     --outline-thickness: 0.35rem;
-    --width: 3.5rem;
-    --height: 1.5rem;
+    --switch-width: 3rem;
+    --switch-height: 1rem;
 
     position: relative;
     background-color: transparent;
     outline: var(--outline-thickness) solid var(--color-accent);
-    width: var(--width);
-    height: var(--height);
+    outline-offset: var(--gap);
+    width: var(--switch-width);
+    height: var(--switch-height);
     border-radius: 1000rem;
 
     &[data-checked="true"]::after {
-        translate: calc(100% + (var(--gap) * 2.5));
+        translate: calc(var(--switch-width) - var(--switch-height)) 0;
     }
 
     &[data-checked="false"]::after {
-        translate: var(--gap);
+        translate: 0 0;
     }
 
     &::after {
         content: "";
         position: absolute;
         background-color: var(--color-primary);
-        width: calc(var(--height) - var(--gap));
-        height: calc(var(--height) - var(--gap));
+        width: var(--switch-height);
         inset: 0;
-        top: 50%;
-        transform: translateY(-50%);
         border-radius: 1000rem;
         transition: translate 150ms;
     }

@@ -32,11 +32,15 @@ function App() {
 	return (
 		<>
 			<header>
-				<label className='time-switch-label'>
+				<label 
+					className='time-switch-label' 
+					htmlFor='showTimeSwitch'
+				>
 					{ showTime ? "Show Time" : "Hide Time" }
 				</label>
 
 				<Switch
+					id="showTimeSwitch"
 					checked={showTime}
 					onUpdate={value => setShowTime(value)}
 				/>
