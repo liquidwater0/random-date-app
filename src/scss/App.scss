@@ -1,3 +1,4 @@
+@use "./utilities" as *;
 @use "./font" as *;
 
 *, *::before, *::after {
@@ -16,13 +17,26 @@
     --color-text: hsl(96, 38%, 92%);
 }
 
+html, body, #root, main {
+    height: 100%;
+}
+
 body {
     background-color: var(--color-background);
     color: var(--color-text);
+    overflow: hidden;
 }
 
-html, body, #root, main {
-    height: 100%;
+#root {
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 2rem;
 }
 
 main {
@@ -46,6 +60,10 @@ input {
     &:focus {
         outline: none;
     }
+}
+
+.time-switch-label {
+    margin-right: 1rem;
 }
 
 .date-text, 

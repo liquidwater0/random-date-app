@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import "./scss/App.scss";
+import Switch from './components/Switch';
 
 function App() {
-	const [showTime, _] = useState<boolean>(false); //plan to add toggle for state eventually
+	const [showTime, setShowTime] = useState<boolean>(false);
 	const [startDateMS, setStartDateMS] = useState<number>(new Date().getTime());
 	const [endDateMS, setEndDateMS] = useState<number>(() => {
 		const currentDate = new Date();
@@ -29,47 +30,60 @@ function App() {
 	}
 
 	return (
-		<main>
-			<h1 className='date-text'>
-				{
-					randomDate === null ?
-					`${startDate.toDateString()} ${showTime ? startDate.toLocaleTimeString() : ""}` :
-					`${randomDate.toDateString()} ${showTime ? randomDate.toLocaleTimeString() : ""}`
-				}
-			</h1>
+		<>
+			<header>
+				<label className='time-switch-label'>
+					{ showTime ? "Show Time" : "Hide Time" }
+				</label>
 
-			<form className="random-date-form">
-				<div className='form-group'>
-					<label htmlFor="startDateInput">
-						From
-					</label>
-					<input
-						type={showTime ? "datetime-local" : "date"}
-						id="startDateInput"
-						value={getFormattedDate(startDate)}
-						onChange={({ target }) => setStartDateMS(new Date(target.value).getTime())}
-					/>
-				</div>
-				<div className='form-group'>
-					<label htmlFor="endDateInput">
-						To
-					</label>
-					<input
-						type={showTime ? "datetime-local" : "date"}
-						id="endDateInput"
-						value={getFormattedDate(endDate)}
-						onChange={({ target }) => setEndDateMS(new Date(target.value).getTime())}
-					/>
-				</div>
+				<Switch
+					checked={showTime}
+					onUpdate={value => setShowTime(value)}
+				/>
+			</header>
 
-				<button 
-					type='button'
-					onClick={() => setRandomDate(new Date(Math.floor(Math.random() * (endDateMS - startDateMS) + startDateMS)))}
-				>
-					Get Random Date
-				</button>
-			</form>
-		</main>
+			<main>
+				<h1 className='date-text'>
+					{
+						randomDate === null ?
+						`${startDate.toDateString()} ${showTime ? startDate.toLocaleTimeString() : ""}` :
+						`${randomDate.toDateString()} ${showTime ? randomDate.toLocaleTimeString() : ""}`
+					}
+				</h1>
+
+				<form className="random-date-form">
+					<div className='form-group'>
+						<label htmlFor="startDateInput">
+							From
+						</label>
+						<input
+							type={showTime ? "datetime-local" : "date"}
+							id="startDateInput"
+							value={getFormattedDate(startDate)}
+							onChange={({ target }) => setStartDateMS(new Date(target.value).getTime())}
+						/>
+					</div>
+					<div className='form-group'>
+						<label htmlFor="endDateInput">
+							To
+						</label>
+						<input
+							type={showTime ? "datetime-local" : "date"}
+							id="endDateInput"
+							value={getFormattedDate(endDate)}
+							onChange={({ target }) => setEndDateMS(new Date(target.value).getTime())}
+						/>
+					</div>
+
+					<button 
+						type='button'
+						onClick={() => setRandomDate(new Date(Math.floor(Math.random() * (endDateMS - startDateMS) + startDateMS)))}
+					>
+						Get Random Date
+					</button>
+				</form>
+			</main>
+		</>
 	);
 }
 
